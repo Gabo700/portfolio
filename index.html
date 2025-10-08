@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gabriel Ribeiro — Portfólio</title>
+
+  <link rel="icon" href="assets/img/favicon.ico" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta name="description"
+    content="Gabriel Ribeiro — Desenvolvedor Full Stack (Node.js, Laravel, React, PostgreSQL, Redis). Portfólio e projetos." />
+</head>
+
+<body>
+  <div id="particles-bg" aria-hidden="true"></div>
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <h1>
+          <span class="name">Gabriel Ribeiro</span>
+          <span class="icon" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
+        </h1>
+
+      </div>
+
+      <div class="header-actions">
+        <button id="theme-toggle" aria-label="Alternar tema" class="btn-icon">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+      </div>
+    </div>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="#home" class="nav-link">Início</a>
+      <a href="#about" class="nav-link">Sobre</a>
+      <a href="#projects" class="nav-link">Projetos</a>
+      <a href="#experience" class="nav-link">Experiências</a>
+      <a href="#contact" class="nav-link">Contato</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h2>Olá — eu sou Gabriel</h2>
+          <p class="lead">
+            Desenvolvedor Full Stack focado em <strong>APIs escaláveis</strong> e aplicações web.<br>
+            Experiência com
+            <strong>Node.js <i class="fa-brands fa-node-js"></i>, Laravel <i class="fa-brands fa-laravel"></i>, React <i
+                class="fa-brands fa-react"></i>, PostgreSQL, Redis e Docker</strong>, sempre priorizando performance.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#projects" class="btn-primary"><i class="fa-solid fa-terminal"></i> Ver Projetos</a>
+            <a href="#contact" class="btn-ghost"><i class="fa-solid fa-envelope"></i> Contato</a>
+          </div>
+
+          <div class="tech-list" aria-hidden="true">
+            <span class="tech">Node.js</span>
+            <span class="tech">Laravel</span>
+            <span class="tech">React</span>
+            <span class="tech">PostgreSQL</span>
+            <span class="tech">Redis</span>
+            <span class="tech">Docker</span>
+            <span class="tech">Git</span>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <img src="assets/img/profile.jpg" alt="Foto de Gabriel Ribeiro" class="hero-avatar" />
+          <div class="hero-badge">
+            <small>Full Stack</small>
+            <strong>Node.js • Laravel • React</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="section-inner">
+        <h2>Sobre</h2>
+        <p>
+          Sou <strong>Desenvolvedor Full Stack</strong>, especializado em Node.js, Laravel e React, com experiência em
+          PostgreSQL, Redis e Docker. Gosto de criar soluções que funcionam sem complicar, mantendo foco em performance
+          e qualidade. Atualmente trabalho com Node.js e React, faço customização e manutenção do Fluig na empresa em
+          que atuo, e também contribuo para o software livre GLPI, uma ferramenta de chamados.
+        </p>
+
+        <div class="about-grid">
+          <div class="card">
+            <h3>Formação</h3>
+            <p><strong>Análise e Desenvolvimento de Sistemas</strong></p>
+          </div>
+
+          <div class="card">
+            <h3>Certificações</h3>
+            <p>ITIL Foundation 4 · LPIC-1</p>
+          </div>
+
+          <div class="card">
+            <h3>Habilidades</h3>
+            <p>JavaScript · PHP · Node.js · Laravel · React · Docker · Redis · PostgreSQL · Git</p>
+          </div>
+
+          <div class="card">
+            <h3>Interesses</h3>
+            <p>Web · IA · Automação · P&D · Performance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="projects section-white">
+      <div class="section-inner">
+        <h2>Projetos</h2>
+
+        <div class="carousel">
+          <button class="carousel-btn prev" aria-label="Projeto anterior"><i
+              class="fa-solid fa-chevron-left"></i></button>
+
+          <div class="carousel-track" id="carousel-track" role="list">
+            <article class="card project-card" role="listitem">
+              <img src="assets/img/dna.jpg" alt="Genetic-test" />
+              <div class="card-content">
+                <h3>Genetic-test</h3>
+                <p>Algoritmo genético para otimização de soluções — foco em performance e aprendizado evolutivo.</p>
+                <div class="badges">
+                  <span>Algoritimo</span><span>Java</span>
+                </div>
+                <a href="https://github.com/Gabo700/Genetic-test-algorithm" target="_blank" class="btn-sm">Ver
+                  Código</a>
+              </div>
+            </article>
+            <article class="card project-card" role="listitem">
+              <img src="assets/img/screensh.png" alt="ESP32-monitor" />
+              <div class="card-content">
+                <h3>ESP32-monitor</h3>
+                <p>Monitoramento em tempo real via ESP32 — integração hardware+software para análise de desempenho.</p>
+                <div class="badges">
+                  <span>IoT</span><span>ESP32</span><span>C++</span><span>Python</span>
+                </div>
+                <a href="https://github.com/Gabo700/ESP32-monitor" target="_blank" class="btn-sm">Ver Código</a>
+              </div>
+            </article>
+            <article class="card project-card" role="listitem">
+              <img src="assets/img/Python.png" alt="Projeto Exemplo" />
+              <div class="card-content">
+                <h3>Renomeando arquivos em massa </h3>
+                <p>Este foi meu primeiro contato com Python há cerca de dois anos.</p>
+                <div class="badges">
+                  <span>Python</span>
+                </div>
+                <a href="https://github.com/Gabo700/Py/blob/main/renom.py" target="_blank" class="btn-sm">Ver
+                  Detalhes</a>
+              </div>
+            </article>
+          </div>
+          <button class="carousel-btn next" aria-label="Próximo projeto"><i
+              class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+    <section id="experience" class="experience">
+      <div class="section-inner">
+        <h2>Experiências</h2>
+        <ol class="timeline">
+          <li>
+            <time>2020 — Presente</time>
+            <div class="timeline-body">
+              <strong>Programador Full Stack (Freelancer)</strong>
+              <p>Desenvolvimento de aplicações web, APIs e integrações para clientes variados.</p>
+            </div>
+          </li>
+          <li>
+            <time>2024 — Presente</time>
+            <div class="timeline-body">
+              <strong>Desenvolvedor Web — Ibiporã Implementos</strong>
+              <p>Criação e manutenção de sistemas internos com foco em performance.</p>
+            </div>
+          </li>
+          <li>
+            <time>2020 — 2024</time>
+            <div class="timeline-body">
+              <strong>Auxiliar de Suporte em TI — Ibiporã Implementos</strong>
+              <p>Suporte técnico e automação de tarefas internas.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section id="contact" class="contact">
+      <div class="section-inner">
+        <h2>Contato</h2>
+
+        <form class="contact-form" action="mailto:gabrielribeirosilvasr@protonmail.com" method="POST"
+          enctype="text/plain">
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" required />
+
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+          <button type="submit" class="btn-primary">Enviar mensagem</button>
+        </form>
+
+        <div class="contact-links">
+          <a href="mailto:gabrielribeirosilvasr@protonmail.com">
+            <i class="fa-solid fa-envelope"></i> E-mail
+          </a>
+          <span>•</span>
+          <a href="https://github.com/Gabo700" target="_blank">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+          <span>•</span>
+          <a href="https://www.linkedin.com/in/gabriel-ribeiro-devs/" target="_blank">
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          </a>
+          <span>•</span>
+          <a href="https://wa.me/554396757048" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <small>&copy; <span id="year"></span> Gabriel Ribeiro — Desenvolvedor Full Stack</small>
+  </footer>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+
+</html>
