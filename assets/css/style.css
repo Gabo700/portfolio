@@ -472,10 +472,8 @@ h2 {
 :root[data-theme="dark"] .contact-form input,
 :root[data-theme="dark"] .contact-form textarea {
   background: rgba(17, 24, 39, 0.8);
-  /* um fundo escuro semi-transparente */
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text);
-  /* texto claro */
 }
 
 .contact-links {
