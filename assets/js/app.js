@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const root = document.documentElement;
   const hour = new Date().getHours();
+
   function applyAutoTheme() {
     const isDay = hour >= 6 && hour < 19;
     if (isDay) {
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('theme-toggle').innerHTML = '<i class="fa-solid fa-sun"></i>';
     }
   }
+
   const saved = localStorage.getItem('theme-preference');
   if (saved === 'dark') {
     root.setAttribute('data-theme', 'dark');
@@ -32,19 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('theme-preference', next);
     toggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
   });
-  document.querySelectorAll('.nav-link').forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        const header = document.querySelector('.site-header');
-        const headerHeight = header ? header.offsetHeight : 0;
-        const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8; // 8px extra
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      }
-    });
-  });
-
+ 
   if (window.tsParticles) {
     tsParticles.load('particles-bg', {
       fullScreen: { enable: false },
@@ -100,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`);
       const data = await res.json();
       postsList.innerHTML = '';
-      data.items.slice(0,5).forEach(item => {
+      data.items.slice(0, 5).forEach(item => {
         const pubDate = new Date(item.pubDate);
         const dateStr = pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
         const desc = item.description.replace(/<[^>]+>/g, '').slice(0, 90) + '...';
@@ -146,3 +136,203 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('App inicializado — portfólio carregado');
 });
+
+(function snakeBackground() {
+  const canvas = document.getElementById('snake-bg');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const grid = 20;
+  const numSnakes = 3;
+  let fruits = [];
+  let enemies = [];
+  let particles = [];
+  let tick = 0;
+
+  let snakes = Array.from({ length: numSnakes }, (_, i) => ({
+    body: [{ x: 5 + i * 5, y: 5 + i * 3 }],
+    dir: [
+      { x: 1, y: 0 },
+      { x: 0, y: 1 },
+      { x: -1, y: 0 },
+      { x: 0, y: -1 }
+    ][i % 4],
+    hue: i * 120,
+    isDead: false
+  }));
+
+  function randomGridPosition() {
+    return {
+      x: Math.floor(Math.random() * (canvas.width / grid)),
+      y: Math.floor(Math.random() * (canvas.height / grid))
+    };
+  }
+
+  for (let i = 0; i < 8; i++) fruits.push(randomGridPosition());
+  for (let i = 0; i < 4; i++) enemies.push({ ...randomGridPosition(), target: randomGridPosition() });
+
+  function resetSnake(snake) {
+    snake.isDead = true; 
+    setTimeout(() => {
+      snake.body = [{ x: Math.floor(Math.random() * (canvas.width / grid)), y: Math.floor(Math.random() * (canvas.height / grid)) }];
+      snake.dir = [
+        { x: 1, y: 0 },
+        { x: 0, y: 1 },
+        { x: -1, y: 0 },
+        { x: 0, y: -1 }
+      ][Math.floor(Math.random() * 4)];
+      snake.isDead = false;
+    }, 1000); 
+  }
+
+  function resetEnemy(enemyIndex) {
+    enemies[enemyIndex] = { ...randomGridPosition(), target: randomGridPosition() };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 0.25;
+
+    snakes.forEach(snake => {
+      if (snake.isDead) return; 
+      
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, `hsl(${snake.hue}, 90%, 55%)`);
+      grad.addColorStop(1, `hsl(${(snake.hue + 60) % 360}, 90%, 55%)`);
+      ctx.fillStyle = grad;
+
+      snake.body.forEach(s => {
+        ctx.fillRect(s.x * grid, s.y * grid, grid - 2, grid - 2);
+      });
+    });
+
+    ctx.globalAlpha = 0.6;
+    fruits.forEach(f => {
+      ctx.beginPath();
+      ctx.fillStyle = `hsl(${(f.x * 15 + f.y * 15 + tick * 2) % 360}, 100%, 60%)`;
+      ctx.arc(f.x * grid + grid / 2, f.y * grid + grid / 2, grid / 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.globalAlpha = 0.3;
+    ctx.fillStyle = 'hsl(0, 80%, 50%)';
+    enemies.forEach(e => {
+      const size = grid / 2.2 + Math.sin(tick * 0.1) * (grid / 8);
+      ctx.beginPath();
+      ctx.arc(e.x * grid + grid / 2, e.y * grid + grid / 2, size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.globalAlpha = 0.8;
+    particles.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.globalAlpha = 1;
+  }
+
+  function update() {
+    tick++;
+
+    snakes.forEach(snake => {
+      if (snake.isDead) return;
+
+      if (tick % 8 !== 0) return; 
+
+      const head = { x: snake.body[0].x + snake.dir.x, y: snake.body[0].y + snake.dir.y };
+
+      if (head.x < 0) head.x = Math.floor(canvas.width / grid) - 1;
+      if (head.y < 0) head.y = Math.floor(canvas.height / grid) - 1;
+      if (head.x * grid >= canvas.width) head.x = 0;
+      if (head.y * grid >= canvas.height) head.y = 0;
+
+      const fruitIndex = fruits.findIndex(f => f.x === head.x && f.y === head.y);
+      if (fruitIndex !== -1) {
+        const eatenFruit = fruits.splice(fruitIndex, 1)[0];
+        fruits.push(randomGridPosition());
+        snake.body.unshift(head);
+        for (let i = 0; i < 8; i++) {
+          particles.push({
+            x: eatenFruit.x * grid + grid / 2,
+            y: eatenFruit.y * grid + grid / 2,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2,
+            size: Math.random() * 3 + 1,
+            color: `hsl(${snake.hue}, 100%, 60%)`,
+            alpha: 1
+          });
+        }
+      } else {
+        snake.body.unshift(head);
+        snake.body.pop();
+      }
+
+      const hitEnemyIndex = enemies.findIndex(e => Math.abs(e.x - head.x) < 1 && Math.abs(e.y - head.y) < 1);
+      const hitSelf = snake.body.slice(1).some(s => s.x === head.x && s.y === head.y);
+
+      if (hitEnemyIndex !== -1) {
+        resetSnake(snake);
+        resetEnemy(hitEnemyIndex);
+      } else if (hitSelf) {
+        resetSnake(snake);
+      }
+    });
+
+    particles = particles.filter(p => p.alpha > 0.1);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.03;
+      p.size *= 0.96;
+    });
+
+    draw();
+  }
+
+  setInterval(() => {
+    snakes.forEach(snake => {
+      if (snake.isDead) return;
+
+      const head = snake.body[0];
+      let closestFruit = null;
+      let minDist = Infinity;
+
+      fruits.forEach(f => {
+        const dist = Math.sqrt((f.x - head.x) ** 2 + (f.y - head.y) ** 2);
+        if (dist < minDist) {
+          minDist = dist;
+          closestFruit = f;
+        }
+      });
+
+      if (!closestFruit) return;
+      let newDir = { ...snake.dir };
+      if (Math.abs(head.x - closestFruit.x) > Math.abs(head.y - closestFruit.y)) {
+        newDir.x = Math.sign(closestFruit.x - head.x);
+        newDir.y = 0;
+      } else {
+        newDir.x = 0;
+        newDir.y = Math.sign(closestFruit.y - head.y);
+      }
+      if (!(newDir.x === -snake.dir.x && newDir.y === -snake.dir.y)) {
+        snake.dir = newDir;
+      }
+    });
+  }, 400);
+
+  function loop() {
+    update();
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();

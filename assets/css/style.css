@@ -36,7 +36,23 @@ html,body {
   -moz-osx-font-smoothing:grayscale; 
 }
 
-.site-header{ padding:28px 20px; background:linear-gradient(90deg,#232946 60%, #4f3c88 100%); color:#fff; border-bottom-left-radius:18px; border-bottom-right-radius:18px; position:sticky; top:0; z-index:30; box-shadow:0 6px 24px rgba(0,0,0,0.06); }
+#snake-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0; 
+  background: transparent;
+  pointer-events: none;
+}
+
+#particles-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: transparent;
+  pointer-events: none;
+}
+
+.site-header{ padding:28px 20px; background:linear-gradient(90deg,#232946 60%, #4f3c88 100%); color:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:18px; position:sticky; top:0; z-index:30; box-shadow:0 6px 24px rgba(0,0,0,0.06); }
 .header-inner{ max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .brand h1{ font-size:1.1rem; color:var(--primary-2); letter-spacing:1px; display:flex; align-items:center; gap:10px; }
 .brand .tagline{ font-size:0.92rem; color:#fff; opacity:0.85; margin-top:6px; font-weight:500; }
