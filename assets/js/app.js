@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
   }, { once: true });
 
-  console.log('App inicializado — portfólio carregado');
+  console.log('App inicializado - portfólio carregado');
 });
 
 (function snakeBackground() {
